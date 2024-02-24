@@ -10,8 +10,9 @@ def sanitize_inventory():
 				  'minecraft:granite',
 				  'minecraft:diorite']
 	for i in range(1, 17):
-		item_detail = turtle.getItemDetail(i)
-		if item_detail['name'] in black_list:
+		turtle.select(i)
+		item_detail = turtle.getItemDetail()
+		if item_detail is not None and item_detail['name'] in black_list:
 			turtle.dropDown()
 
 
