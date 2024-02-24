@@ -36,4 +36,5 @@ function write_motd()
     end
 end
 
+shell.run("clear")
 write_motd()
