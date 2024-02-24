@@ -32,7 +32,7 @@ shell.setPath(shell.path()..":/progs")
 shell.run("git", "get", "dfAndrade", "cc-repo", "main", "utils/json.lua", "/libs/lua/json.lua")
 
 -- Get git "pull" capabilities
-shell.run("git", "get", "dfAndrade", "cc-repo", "main", "git_utils.lua", "/prog/git_utils")
+shell.run("git", "get", "dfAndrade", "cc-repo", "main", "git_utils.lua", "/progs/git_utils")
 
 -- Get startup file
 shell.run("git", "get", "FredCarvalhoOliveira", "minecraft-cc-turtles", "master", "lua/startup.lua", "startup")
