@@ -29,6 +29,7 @@ local motd = {
 }
 
 function write_motd()
+    print("MeowOS_v0w0")
     local idx = math.random(3)
     local chosen = motd[idx]
     for _, v in pairs(chosen) do
@@ -36,6 +37,6 @@ function write_motd()
     end
 end
 
-print("MeowOS_v0w0")
+
 shell.run("clear")
 write_motd()
