@@ -55,7 +55,7 @@ end
 -- Add progs to PATH
 shell.setPath(shell.path()..":/progs")
 
-shell.alias("tmove", "go")
+shell.setAlias("tmove", "go")
 
 shell.run("clear")
 write_motd()
