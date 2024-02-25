@@ -32,8 +32,9 @@ function write_motd()
     print("MeowOS_v0w0")
     local idx = math.random(3)
     local chosen = motd[idx]
+    local w, _ = term.getSize()
     for _, v in pairs(chosen) do
-        print(v)
+        print(v:sub(0, w))
     end
 end
 
