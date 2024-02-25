@@ -52,6 +52,8 @@ function write_motd()
     end
 end
 
+-- Add progs to PATH
+shell.setPath(shell.path()..":/progs")
 
 shell.run("clear")
 write_motd()
