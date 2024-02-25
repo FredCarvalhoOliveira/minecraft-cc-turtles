@@ -19,13 +19,13 @@ class SmartTurtle:
 	def orientation(self):
 		return self.__compass[self.__curr_orient_idx]
 
-	def turn_right(self, num_times: int = 1):
-		for i in range(num_times):
+	def turn_right(self, num_steps: int = 1):
+		for i in range(num_steps):
 			self.__turtle.turnRight()
 			self.__curr_orient_idx += 1
 
-	def turn_left(self, num_times: int = 1):
-		for i in range(num_times):
+	def turn_left(self, num_steps: int = 1):
+		for i in range(num_steps):
 			self.__turtle.turnLeft()
 			self.__curr_orient_idx -= 1
 
@@ -54,6 +54,16 @@ class SmartTurtle:
 				self.__z_offset -= 1
 			elif self.orientation == 'O':
 				self.__z_offset += 1
+
+	def up(self, num_steps: int = 1):
+		for i in range(num_steps):
+			self.__turtle.up()
+			self.__y_offset += 1
+
+	def down(self, num_steps: int = 1):
+		for i in range(num_steps):
+			self.__turtle.down()
+			self.__y_offset -= 1
 
 	def sanitize_inventory(self):
 		black_list = ['minecraft:cobblestone',
