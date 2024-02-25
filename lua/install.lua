@@ -60,3 +60,6 @@ shell.run("git", "get", "FredCarvalhoOliveira", "minecraft-cc-turtles", "master"
 -- Success: "> Downloaded as progs/py"
 -- Failure: "> Connecting to ... Failed"
 shell.run("wget", "http://127.0.0.1:8080/", "progs/py")
+
+-- Reset
+shell.run("reboot")
