@@ -42,7 +42,7 @@ create_dir("libs/lua")
 create_dir("libs/python")
  
 -- Move git into progs  
-forceCopy("/disk/git", "/progs/git")
+-- forceCopy("/disk/git", "/progs/git")
  
 -- Add the folder to shell path
 shell.setPath(shell.path()..":/progs")
