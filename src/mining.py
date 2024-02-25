@@ -98,11 +98,6 @@ class SmartTurtle:
 			self.turn_right()
 
 	def return_home(self):
-		print(self.__y_offset)
-		print(self.__x_offset)
-		print(self.__z_offset)
-		print('=====================')
-
 		if self.__y_offset > 0:
 			self.down(self.__y_offset)
 		elif self.__y_offset < 0:
