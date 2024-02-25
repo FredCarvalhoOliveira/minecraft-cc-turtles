@@ -35,11 +35,11 @@ shell.setPath(shell.path()..":/progs")
 -- Get git
 forceGet("https://raw.githubusercontent.com/dfAndrade/cc-repo/main/git_utils.lua", "/progs/git")
 
+-- Get JSON capabilities
+forceGet("https://raw.githubusercontent.com/dfAndrade/cc-repo/main/utils/json.lua", "/libs/lua/json.lua")
+
 -- Set git state
 shell.run("git", "status", "dfAndrade", "cc-repo", "main")
-
--- Get JSON capabilities
-shell.run("git", "get", "utils/json.lua", "libs/lua/json.lua")
 
 -- Get startup file
 shell.run("git", "get", "FredCarvalhoOliveira", "minecraft-cc-turtles", "master", "lua/startup.lua", "startup")
