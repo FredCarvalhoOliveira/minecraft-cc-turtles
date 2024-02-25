@@ -1,26 +1,14 @@
-function create_dir(path)
+local function create_dir(path)
     if not fs.exists(path) then
         fs.makeDir(path)
     end
 end
 
-function create_file_rel(path)
-    fs.open(shell.resolve(path), "a").close()
-end
-
-function create_file(path)
+local function create_file(path)
     fs.open(path, "a").close()
 end
 
-function forceCopy(source, target)
-    if fs.exists(target) then
-        fs.delete(target)
-    end
-    
-    fs.copy(source, target)
-end
-
-function forceGet(source, target)
+local function forceGet(source, target)
     if fs.exists(target) then
         fs.delete(target)
     end
