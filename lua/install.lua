@@ -41,16 +41,13 @@ create_dir("libs")
 create_dir("libs/lua")
 create_dir("libs/python")
  
--- Move git into progs  
--- forceCopy("/disk/git", "/progs/git")
- 
 -- Add the folder to shell path
 shell.setPath(shell.path()..":/progs")
 
 -- Get git
 forceGet("https://raw.githubusercontent.com/dfAndrade/cc-repo/main/git_utils.lua", "/progs/git")
 
--- Set state
+-- Set git state
 shell.run("git", "status", "dfAndrade", "cc-repo", "main")
 
 -- Get JSON capabilities
