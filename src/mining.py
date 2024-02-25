@@ -106,21 +106,21 @@ class SmartTurtle:
 		if self.__y_offset > 0:
 			self.down(self.__y_offset)
 		elif self.__y_offset < 0:
-			self.up(self.__y_offset)
+			self.up(abs(self.__y_offset))
 
 		if self.__x_offset > 0:
 			self.face_orientation('S')
 			self.forward(self.__x_offset)
 		elif self.__x_offset < 0:
 			self.face_orientation('N')
-			self.forward(self.__x_offset)
+			self.forward(abs(self.__x_offset))
 
 		if self.__z_offset > 0:
 			self.face_orientation('O')
 			self.forward(self.__z_offset)
 		elif self.__z_offset < 0:
 			self.face_orientation('E')
-			self.forward(self.__z_offset)
+			self.forward(abs(self.__z_offset))
 
 	def quarry(self, length, width, depth):  # length ^ width >
 		going_away = True
