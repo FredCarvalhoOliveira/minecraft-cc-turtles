@@ -127,7 +127,7 @@ class SmartTurtle:
 
 				if j != width-1:
 					self.turn(turn_right=going_away)
-					dig_col()
+					self.dig_col()
 					self.turn(turn_right=going_away)
 					going_away = not going_away
 				self.sanitize_inventory()
