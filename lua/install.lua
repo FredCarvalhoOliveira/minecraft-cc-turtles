@@ -19,6 +19,14 @@ function forceCopy(source, target)
     
     fs.copy(source, target)
 end
+
+function forceGet(source, target)
+    if fs.exists(target) then
+        fs.delete(target)
+    end
+    
+    shell.run("wget", source, target)
+end
  
 -- Create your own "rom" folder
 -- that will be added to PATH
@@ -40,7 +48,7 @@ forceCopy("/disk/git", "/progs/git")
 shell.setPath(shell.path()..":/progs")
 
 -- Get git
-shell.run("wget", "https://raw.githubusercontent.com/dfAndrade/cc-repo/main/git_utils.lua", "/progs/git")
+forceGet("https://raw.githubusercontent.com/dfAndrade/cc-repo/main/git_utils.lua", "/progs/git")
 
 -- Set state
 shell.run("git", "status", "dfAndrade", "cc-repo", "main")
