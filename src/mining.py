@@ -72,6 +72,7 @@ class SmartTurtle:
 					  'minecraft:sand',
 					  'minecraft:andesite',
 					  'minecraft:granite',
+					  'minecraft:deepslate',
 					  'minecraft:diorite']
 		for i in range(1, 17):
 			self.__turtle.select(i)
