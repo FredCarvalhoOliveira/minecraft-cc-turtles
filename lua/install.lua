@@ -38,12 +38,15 @@ forceCopy("/disk/git", "/progs/git")
  
 -- Add the folder to shell path
 shell.setPath(shell.path()..":/progs")
- 
--- Get JSON capabilities
-shell.run("git", "get", "dfAndrade", "cc-repo", "main", "utils/json.lua", "/libs/lua/json.lua")
 
--- Get git "pull" capabilities
-shell.run("git", "get", "dfAndrade", "cc-repo", "main", "git_utils.lua", "/progs/git_utils")
+-- Get git
+shell.run("wget", "https://raw.githubusercontent.com/dfAndrade/cc-repo/main/git_utils.lua", "/progs/git")
+
+-- Set state
+shell.run("git", "status", "dfAndrade", "cc-repo", "main")
+
+-- Get JSON capabilities
+shell.run("git", "get", "utils/json.lua", "libs/lua/json.lua")
 
 -- Get startup file
 shell.run("git", "get", "FredCarvalhoOliveira", "minecraft-cc-turtles", "master", "lua/startup.lua", "startup")
