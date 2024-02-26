@@ -1,1 +1,1 @@
-shell.run("git", "status", "FredCarvalhOliveira", "minecraft-cc-turtles", "master")
+shell.run("git", "status", "FredCarvalhoOliveira", "minecraft-cc-turtles", "master")
