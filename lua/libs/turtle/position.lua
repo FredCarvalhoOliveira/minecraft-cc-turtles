@@ -80,6 +80,11 @@ function pos.savePosition()
     f.close()
 end
 
+function pos.setPosition(x,y,z, dir)
+    position = vector.new(x,y,z)
+    direction = dir
+end
+
 function pos.move(fwd_bwd)
     if fwd_bwd ~= pos.FORWARD and fwd_bwd ~= pos.BACK then
         error("Invalid movement direction | [pos.FORWARD | pos.BACK]")
