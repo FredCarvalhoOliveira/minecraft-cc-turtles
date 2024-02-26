@@ -1,4 +1,4 @@
---v1
+--v2
 
 local function create_dir(path)
     if not fs.exists(path) then
