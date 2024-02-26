@@ -86,15 +86,17 @@ function pos.move(fwd_bwd)
     end
 
     print("")
-    print("will move: "..fwd_bwd)
+    print("will move: "..fwd_bwd.." | dir:"..direction)
     local toMove = dir_map[direction]
+    print("Source map: "..textutils.serialize(dir_map))
+    print("Raw: "..textutils.serialize(toMove))
     toMove = vector.new(toMove)
-    print("to "..textutils.serialize(toMove))
+    print("vector "..textutils.serialize(toMove))
     if fwd_bwd == pos.BACK then
         toMove:mul(-1)
     end
 
-    print("to2 "..textutils.serialize(toMove))
+    print("vector2 "..textutils.serialize(toMove))
 
     print("init pos: "..textutils.serialize(position))
 
