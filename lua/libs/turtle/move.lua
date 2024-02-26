@@ -49,7 +49,7 @@ function move.fwd()
 end
 
 function move.back()
-    return tryMoveH(true)
+    return tryMoveH(false)
 end
 
 function move.up()
