@@ -15,11 +15,11 @@ local z = read()
 
 print("THANK YOU")
 
-os.sleep(0.05)
+sleep(0.05)
 write(". ")
-os.sleep(0.05)
+sleep(0.05)
 write(". ")
-os.sleep(0.05)
+sleep(0.05)
 print(".")
 
 print("Where am i lookin?")
