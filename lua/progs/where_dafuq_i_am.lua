@@ -9,17 +9,17 @@ print("GIVE THE Y: ")
 local y = read()
 
 print("NOW THE Z: ")
-sleep(0.20)
+sleep(0.5)
 print("WHY U SO SLOW FFS")
 local z = read()
 
 print("THANK YOU")
 
-sleep(0.05)
+sleep(0.3)
 write(". ")
-sleep(0.05)
+sleep(0.3)
 write(". ")
-sleep(0.05)
+sleep(0.3)
 print(".")
 
 print("Where am i lookin?")
@@ -41,10 +41,10 @@ local is_first = true
 local dir = read()
 local i = 1
 local insult
-while dir ~= "N" and dir ~= "S" and dir ~= "E" and dir ~= "N" do
+while dir ~= "N" and dir ~= "S" and dir ~= "E" and dir ~= "W" do
     if is_first then
         print("Possible choices are [ N | S | E | W ]")
-        io.sleep(0.05)
+        sleep(0.15)
         print("dumbass..")
         is_first = false
 
