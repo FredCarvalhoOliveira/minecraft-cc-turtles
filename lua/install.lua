@@ -40,16 +40,24 @@ forceGet("https://raw.githubusercontent.com/dfAndrade/cc-repo/main/git_utils.lua
 -- Get JSON capabilities
 forceGet("https://raw.githubusercontent.com/dfAndrade/cc-repo/main/utils/json.lua", "/libs/lua/json.lua")
 
+forceGet("https://raw.githubusercontent.com/SquidDev-CC/mbs/master/mbs.lua", "mbs")
+
 -- Set git state
 shell.run("git", "status", "dfAndrade", "cc-repo", "main")
 
 -- Get startup file
 shell.run("git", "get", "FredCarvalhoOliveira", "minecraft-cc-turtles", "master", "lua/startup.lua", "startup")
 
+
+
 -- Get python from server
 -- Success: "> Downloaded as progs/py"
 -- Failure: "> Connecting to ... Failed"
 forceGet("http://127.0.0.1:8080/", "progs/py")
+
+-- Install better shell
+shell.run("mbs", "install")
+shell.run("rm", "mbs")
 
 -- Reset
 shell.run("reboot")
