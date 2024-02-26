@@ -76,8 +76,7 @@ function pos.savePosition()
 
     local serialized  = textutils.serialise(state)
     print("will save: "..serialized)
-
-    f.write()
+    f.write(serialized)
     f.close()
 end
 
