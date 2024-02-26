@@ -29,12 +29,13 @@ local function main()
     end
 end
 
-if pcall(main) then
+local s, e = pcall(main)
+if s then
     -- no errors while running `foo'
     print("Success")
 else
     -- `foo' raised an error: take appropriate actions
-    print("Error")
+    print("Error: "..e)
 end
 
 -- always do this :D
