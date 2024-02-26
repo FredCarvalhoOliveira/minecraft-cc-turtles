@@ -5,17 +5,20 @@ pos.loadPosition()
 
 local function tryMoveH(fwd_bwd)
     local s, r
+    local call_param
     if fwd_bwd then
         s, r = turtle.forward()
+        call_param = pos.FORWARD
     else
         s, r = turtle.back()
+        call_param = pos.BACK
     end
 
     if not s then
         return { false, r }
     end
 
-    pos.move(fwd_bwd)
+    pos.move(call_param)
 
     return { true }
 end
