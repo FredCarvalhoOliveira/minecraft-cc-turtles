@@ -1,4 +1,4 @@
-local file = require ".libs.file"
+local file = require ".libs.lua.file"
 local pos = {}
 
 local POS_PATH = "/.state/position"
