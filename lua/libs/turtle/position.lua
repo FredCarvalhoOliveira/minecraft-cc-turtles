@@ -52,14 +52,14 @@ function pos.loadPosition()
     f.close()
     local posinfo = textutils.unserialize(raw_content)
 
-    print("From file: "..posinfo)
+    print("From file: "..textutils.unserialize(posinfo))
     posinfo = posinfo or {}
 
-    print("After nil check: "..posinfo)
+    print("After nil check: "..textutils.unserialize(posinfo))
 
     if posinfo.position then
         position = vector.new(posinfo.position[1], posinfo.position[2], posinfo.position[3])
-        print("To vector: "..position)
+        print("To vector: "..textutils.unserialize(position))
     end
 
     direction = posinfo.direction or direction
