@@ -1,0 +1,1 @@
+shell.run("git", "status", "dfAndrade", "cc-repo", "main")
