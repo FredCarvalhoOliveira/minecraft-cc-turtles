@@ -22,9 +22,9 @@ local function main()
             move.turnTo(right)
             move.fwd()
         elseif v == "up" then
-            move.moveUp()
+            move.up()
         elseif v == "down" then
-            move.moveDown()
+            move.down()
         end
     end
 end
