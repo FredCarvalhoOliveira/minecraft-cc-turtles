@@ -41,6 +41,10 @@ function pos.getPosition()
     return position
 end
 
+function pos.getDirection()
+    return direction
+end
+
 function pos.loadPosition()
     file.createIfNotExists(POS_PATH)
     local f = fs.open(POS_PATH, "r")
