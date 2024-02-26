@@ -77,6 +77,7 @@ function pos.move(fwd_bwd)
     end
 
     local toMove = dir_map[direction]
+    toMove = vector.new(toMove)
     if fwd_bwd == pos.BACK then
         toMove:mul(-1)
     end
