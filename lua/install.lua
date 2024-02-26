@@ -1,4 +1,4 @@
---v2
+--v4
 
 local function create_dir(path)
     if not fs.exists(path) then
@@ -41,6 +41,10 @@ forceGet("https://raw.githubusercontent.com/dfAndrade/cc-repo/main/git_utils.lua
 forceGet("https://raw.githubusercontent.com/dfAndrade/cc-repo/main/utils/json.lua", "/libs/lua/json.lua")
 
 forceGet("https://raw.githubusercontent.com/SquidDev-CC/mbs/master/mbs.lua", "mbs")
+
+-- repo switchers
+forceGet("https://raw.githubusercontent.com/FredCarvalhoOliveira/minecraft-cc-turtles/master/lua/progs/df_git.lua", "/progs/df_git.lua")
+forceGet("https://raw.githubusercontent.com/FredCarvalhoOliveira/minecraft-cc-turtles/master/lua/progs/df_git.lua", "/progs/df_git.lua")
 
 -- Set git state
 shell.run("git", "status", "dfAndrade", "cc-repo", "main")
