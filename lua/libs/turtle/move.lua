@@ -67,6 +67,12 @@ function move.turnLeft()
     pos.turnLeft()
 end
 
+function move.turnTo(dir)
+    while pos.getDirection() ~= dir do
+        move.turnLeft()
+    end
+end
+
 move.position = pos
 
 return move
