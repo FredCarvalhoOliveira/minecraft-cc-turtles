@@ -46,9 +46,9 @@ forceGet("https://raw.githubusercontent.com/SquidDev-CC/mbs/master/mbs.lua", "mb
 -- Pull progs 
 shell.run("git", "status", "FredCarvalhoOliveira", "minecraft-cc-turtles", "master")
 shell.setDir("/libs/lua")
-shell.run("git", "pull", "/lua/libs")
+shell.run("git", "pull", "lua/libs")
 shell.setDir("/progs")
-shell.run("git", "pull", "/lua/progs")
+shell.run("git", "pull", "lua/progs")
 shell.setDir("/")
 shell.run("git", "get", "src/mining.py", "mining.py")
 
