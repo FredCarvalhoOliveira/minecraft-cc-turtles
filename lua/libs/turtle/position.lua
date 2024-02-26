@@ -58,7 +58,7 @@ function pos.loadPosition()
     print("After nil check: "..textutils.serialize(posinfo))
 
     if posinfo.position then
-        position = vector.new( posinfo.position)
+        position = vector.new(posinfo.position.x, posinfo.position.y,posinfo.position.z)
         print("To vector: "..textutils.serialize(position))
     end
 
@@ -90,7 +90,7 @@ function pos.move(fwd_bwd)
     local toMove = dir_map[direction]
     print("Source map: "..textutils.serialize(dir_map))
     print("Raw: "..textutils.serialize(toMove))
-    toMove = vector.new(toMove)
+    toMove = vector.new(toMove.x,toMove.y,toMove.z)
     print("vector "..textutils.serialize(toMove))
     if fwd_bwd == pos.BACK then
         toMove:mul(-1)
