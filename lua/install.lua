@@ -40,7 +40,17 @@ forceGet("https://raw.githubusercontent.com/dfAndrade/cc-repo/main/git_utils.lua
 -- Get JSON capabilities
 forceGet("https://raw.githubusercontent.com/dfAndrade/cc-repo/main/utils/json.lua", "/libs/lua/json.lua")
 
+-- Better term
 forceGet("https://raw.githubusercontent.com/SquidDev-CC/mbs/master/mbs.lua", "mbs")
+
+-- Pull progs 
+shell.run("git", "status", "FredCarvalhoOliveira", "minecraft-cc-turtles", "master")
+shell.setDir("/libs/lua")
+shell.run("git", "pull", "/lua/libs")
+shell.setDir("/progs")
+shell.run("git", "pull", "/lua/progs")
+shell.setDir("/")
+shell.run("git", "get", "src/mining.py", "mining.py")
 
 -- repo switchers
 forceGet("https://raw.githubusercontent.com/FredCarvalhoOliveira/minecraft-cc-turtles/master/lua/progs/df_git.lua", "/progs/df_git.lua")
