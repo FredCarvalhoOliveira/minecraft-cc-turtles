@@ -3,15 +3,15 @@ local position = require ".libs.lua.turtle.position"
 print("WHERE DAFUQ I AM BICH")
 print("GIVE THe X: ")
 
-local x = io.read("*n")
+local x = read()
 
 print("GIVE THE Y: ")
-local y = io.read("*n")
+local y = read()
 
 print("NOW THE Z: ")
-os.sleep(0.20)
+sleep(0.20)
 print("WHY U SO SLOW FFS")
-local z = io.read("*n")
+local z = read()
 
 print("THANK YOU")
 
@@ -38,7 +38,7 @@ local insults = {
 }
 
 local is_first = true
-local dir = io.read("*a")
+local dir = read()
 local i = 1
 local insult
 while dir ~= "N" and dir ~= "S" and dir ~= "E" and dir ~= "N" do
