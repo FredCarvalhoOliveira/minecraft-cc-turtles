@@ -52,12 +52,15 @@ function pos.loadPosition()
     f.close()
     local posinfo = textutils.unserialize(raw_content)
 
+    print("From file: "..posinfo)
     posinfo = posinfo or {}
+
+    print("After nil check: "..posinfo)
 
     if posinfo.position then
         position = vector.new(posinfo.position[1], posinfo.position[2], posinfo.position[3])
+        print("To vector: "..position)
     end
-
 
     direction = posinfo.direction or direction
 end
@@ -71,7 +74,10 @@ function pos.savePosition()
         direction = direction
     }
 
-    f.write(textutils.serialise(state))
+    local serialized  = textutils.serialise(state)
+    print("will save: "..serialized)
+
+    f.write()
     f.close()
 end
 
@@ -80,13 +86,22 @@ function pos.move(fwd_bwd)
         error("Invalid movement direction | [pos.FORWARD | pos.BACK]")
     end
 
+    print("")
+    print("will move: "..fwd_bwd)
     local toMove = dir_map[direction]
     toMove = vector.new(toMove[1], toMove[2], toMove[3])
+    print("to "..textutils.serialize(toMove))
     if fwd_bwd == pos.BACK then
         toMove:mul(-1)
     end
 
+    print("to2 "..textutils.serialize(toMove))
+
+    print("init pos: "..textutils.serialize(position))
+
     position = position:add(toMove)
+
+    print("final pos: "..textutils.serialize(position))
 
     return position
 end
