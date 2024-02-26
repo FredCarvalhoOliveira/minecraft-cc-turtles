@@ -1,4 +1,4 @@
---v5
+--v6
 
 local function create_dir(path)
     if not fs.exists(path) then
@@ -61,7 +61,6 @@ forceGet("http://127.0.0.1:8080/", "progs/py")
 
 -- Install better shell
 shell.run("mbs", "install")
-shell.run("rm", "mbs")
 
 -- Reset
 shell.run("reboot")
