@@ -13,10 +13,10 @@ pos.EAST = "EAST"   -- +X
 pos.WEST = "WEST"   -- -X
 
 local dir_map = {
-    [pos.NORTH] = { 0, 0, -1 },
-    [pos.SOUTH] = { 0, 0, 1 },
-    [pos.EAST]  = { 1, 0, 0 },
-    [pos.WEST]  = { -1, 0, 0 },
+    [pos.NORTH] = { x=0, y=0, z=-1 },
+    [pos.SOUTH] = { x=0, y=0, z=1 },
+    [pos.EAST]  = { x=1, y=0, z=0 },
+    [pos.WEST]  = { x=-1, y=0, z=0 },
 }
 
 local right = {
@@ -58,7 +58,7 @@ function pos.loadPosition()
     print("After nil check: "..textutils.serialize(posinfo))
 
     if posinfo.position then
-        position = vector.new(posinfo.position[1], posinfo.position[2], posinfo.position[3])
+        position = vector.new( posinfo.position)
         print("To vector: "..textutils.serialize(position))
     end
 
@@ -89,7 +89,7 @@ function pos.move(fwd_bwd)
     print("")
     print("will move: "..fwd_bwd)
     local toMove = dir_map[direction]
-    toMove = vector.new(toMove[1], toMove[2], toMove[3])
+    toMove = vector.new(toMove)
     print("to "..textutils.serialize(toMove))
     if fwd_bwd == pos.BACK then
         toMove:mul(-1)
