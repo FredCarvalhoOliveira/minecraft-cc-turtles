@@ -48,6 +48,8 @@ function pos.loadPosition()
     f.close()
     local posinfo = textutils.unserialize(raw_content)
 
+    posinfo = posinfo or {}
+
     position = vector.new(posinfo.position or position)
     direction = posinfo.direction or direction
 end
