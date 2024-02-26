@@ -1,4 +1,4 @@
-local file = require "file"
+local file = require ".libs.file"
 local pos = {}
 
 local POS_PATH = "/.state/position"

@@ -1,4 +1,4 @@
-local pos = require("position")
+local pos = require ".libs.turtle.position"
 local move = {}
 
 pos.loadPosition()
