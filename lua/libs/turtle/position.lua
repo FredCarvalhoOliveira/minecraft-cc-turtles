@@ -54,7 +54,11 @@ function pos.loadPosition()
 
     posinfo = posinfo or {}
 
-    position = vector.new(posinfo.position or position)
+    if posinfo.position then
+        position = vector.new(posinfo.position[1], posinfo.position[2], posinfo.position[3])
+    end
+
+
     direction = posinfo.direction or direction
 end
 
@@ -77,7 +81,7 @@ function pos.move(fwd_bwd)
     end
 
     local toMove = dir_map[direction]
-    toMove = vector.new(toMove)
+    toMove = vector.new(toMove[1], toMove[2], toMove[3])
     if fwd_bwd == pos.BACK then
         toMove:mul(-1)
     end
