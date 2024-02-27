@@ -13,10 +13,10 @@ pos.EAST = "EAST"   -- +X
 pos.WEST = "WEST"   -- -X
 
 local dir_map = {
-    [pos.NORTH] = { 0, 0, -1 },
-    [pos.SOUTH] = { 0, 0, 1 },
-    [pos.EAST]  = { 1, 0, 0 },
-    [pos.WEST]  = { -1, 0, 0 },
+    [pos.NORTH] = { x=0, y=0, z=-1 },
+    [pos.SOUTH] = { x=0, y=0, z=1 },
+    [pos.EAST]  = { x=1, y=0, z=0 },
+    [pos.WEST]  = { x=-1, y=0, z=0 },
 }
 
 local right = {
@@ -52,12 +52,15 @@ function pos.loadPosition()
     f.close()
     local posinfo = textutils.unserialize(raw_content)
 
+    print("From file: "..textutils.serialize(posinfo))
     posinfo = posinfo or {}
 
-    if posinfo.position then
-        position = vector.new(posinfo.position[1], posinfo.position[2], posinfo.position[3])
-    end
+    print("After nil check: "..textutils.serialize(posinfo))
 
+    if posinfo.position then
+        position = vector.new(posinfo.position.x, posinfo.position.y,posinfo.position.z)
+        print("To vector: "..textutils.serialize(position))
+    end
 
     direction = posinfo.direction or direction
 end
@@ -71,8 +74,15 @@ function pos.savePosition()
         direction = direction
     }
 
-    f.write(textutils.serialise(state))
+    local serialized  = textutils.serialise(state)
+    print("will save: "..serialized)
+    f.write(serialized)
     f.close()
+end
+
+function pos.setPosition(x,y,z, dir)
+    position = vector.new(x,y,z)
+    direction = dir
 end
 
 function pos.move(fwd_bwd)
@@ -80,13 +90,24 @@ function pos.move(fwd_bwd)
         error("Invalid movement direction | [pos.FORWARD | pos.BACK]")
     end
 
+    print("")
+    print("will move: "..fwd_bwd.." | dir:"..direction)
     local toMove = dir_map[direction]
-    toMove = vector.new(toMove[1], toMove[2], toMove[3])
+    print("Source map: "..textutils.serialize(dir_map))
+    print("Raw: "..textutils.serialize(toMove))
+    toMove = vector.new(toMove.x,toMove.y,toMove.z)
+    print("vector "..textutils.serialize(toMove))
     if fwd_bwd == pos.BACK then
         toMove:mul(-1)
     end
 
+    print("vector2 "..textutils.serialize(toMove))
+
+    print("init pos: "..textutils.serialize(position))
+
     position = position:add(toMove)
+
+    print("final pos: "..textutils.serialize(position))
 
     return position
 end
