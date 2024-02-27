@@ -47,7 +47,6 @@ while dir ~= "N" and dir ~= "S" and dir ~= "E" and dir ~= "W" do
         sleep(1)
         print("dumbass..")
         is_first = false
-
     else
         insult = insults[i]
         if insult then
@@ -77,6 +76,5 @@ local maps = {
 }
 
 
-position.setPosition(x,y,z,maps[dir])
+position.setPosition(x, y, z, maps[dir])
 position.savePosition()
-
