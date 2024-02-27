@@ -43,6 +43,9 @@ forceGet("https://raw.githubusercontent.com/dfAndrade/cc-repo/main/utils/json.lu
 -- Better term
 forceGet("https://raw.githubusercontent.com/SquidDev-CC/mbs/master/mbs.lua", "mbs")
 
+-- Argument api
+forceGet("https://raw.githubusercontent.com/Commandcracker/cc-argparse/master/src/argparse.lua", "/libs/lua/argparse.lua")
+
 -- Pull progs 
 shell.run("git", "status", "FredCarvalhoOliveira", "minecraft-cc-turtles", "master")
 shell.setDir("/libs/lua")
