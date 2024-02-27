@@ -30,30 +30,38 @@ class SmartTurtle:
 			self.__curr_orient_idx -= 1
 
 	def forward(self, num_steps: int = 1):
-		for i in range(num_steps):
-			self.__turtle.forward()
+		success = True
 
-			if self.orientation == 'N':
-				self.__x_offset += 1
-			elif self.orientation == 'S':
-				self.__x_offset -= 1
-			elif self.orientation == 'E':
-				self.__z_offset += 1
-			elif self.orientation == 'O':
-				self.__z_offset -= 1
+		for i in range(num_steps):
+			step_success = self.__turtle.forward()
+			if step_success:
+				if self.orientation == 'N':
+					self.__x_offset += 1
+				elif self.orientation == 'S':
+					self.__x_offset -= 1
+				elif self.orientation == 'E':
+					self.__z_offset += 1
+				elif self.orientation == 'O':
+					self.__z_offset -= 1
+			success = success and step_success
+		return success
 
 	def back(self, num_steps: int = 1):
-		for i in range(num_steps):
-			self.__turtle.back()
+		success = True
 
-			if self.orientation == 'N':
-				self.__x_offset -= 1
-			elif self.orientation == 'S':
-				self.__x_offset += 1
-			elif self.orientation == 'E':
-				self.__z_offset -= 1
-			elif self.orientation == 'O':
-				self.__z_offset += 1
+		for i in range(num_steps):
+			step_success = self.__turtle.back()
+			if step_success:
+				if self.orientation == 'N':
+					self.__x_offset -= 1
+				elif self.orientation == 'S':
+					self.__x_offset += 1
+				elif self.orientation == 'E':
+					self.__z_offset -= 1
+				elif self.orientation == 'O':
+					self.__z_offset += 1
+			success = success and step_success
+		return success
 
 	def up(self, num_steps: int = 1):
 		for i in range(num_steps):
@@ -82,8 +90,12 @@ class SmartTurtle:
 
 	def dig_col(self, num_steps: int = 1):
 		for i in range(num_steps):
-			self.__turtle.dig()
-			self.forward()
+			step_success = False
+			for attempt_idx in range(500):
+				if step_success:
+					break
+				self.__turtle.dig()
+				step_success = self.forward()
 			self.__turtle.digUp()
 			self.__turtle.digDown()
 
