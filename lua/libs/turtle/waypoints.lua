@@ -2,6 +2,9 @@ local wp = {}
 
 local function readFile(path)
     local f = fs.open(path, "r")
+    if f == nil then
+        return nil
+    end
     local raw = f.readAll()
     f.close()
     return raw
