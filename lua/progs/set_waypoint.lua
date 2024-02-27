@@ -5,7 +5,7 @@ local argparse = require ".libs.lua.argparse"
 local parser = argparse("set_waypoint ", "Work with waypoints")
 
 -- Conf comand
-parser:command_target "option"
+-- parser:command_target "option"
 
 -- Conf set
 local set = parser:command "set"
@@ -22,4 +22,8 @@ end)
 parser:command "list"
 parser:action(function(args)
     print(textutils.serialise(args))
+    local list = waypoints.list()
+    textutils.serialise(list)
 end)
+
+parser:parse({...})
