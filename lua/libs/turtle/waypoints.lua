@@ -34,4 +34,8 @@ function wp.get(label)
     return saved_state[label]
 end
 
+function wp.getAll()
+    return saved_state
+end
+
 return wp
