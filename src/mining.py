@@ -19,6 +19,11 @@ class SmartTurtle:
 	def orientation(self):
 		return self.__compass[self.__curr_orient_idx]
 
+	@property
+	def manhattan_dist_origin(self):
+		return abs(self.__x_offset) + abs(self.__y_offset) + abs(self.__z_offset)
+
+
 	def turn_right(self, num_steps: int = 1):
 		for i in range(num_steps):
 			self.__turtle.turnRight()
@@ -136,6 +141,10 @@ class SmartTurtle:
 
 		for i in range(depth):
 			for j in range(width):
+				if self.__turtle.getFuelLevel() < self.manhattan_dist_origin + 100:
+					self.return_home()
+					return
+
 				self.dig_col(length)
 
 				if j != width-1:
