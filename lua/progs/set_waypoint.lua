@@ -1,5 +1,5 @@
 local waypoints = require ".libs.lua.turtle.waypoints"
-local argparse = require "argparse"
+local argparse = require ".libs.lua.argparse"
 
 
 local parser = argparse("set_waypoint ", "Work with waypoints")
