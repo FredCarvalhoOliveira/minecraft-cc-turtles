@@ -203,11 +203,13 @@ class SmartTurtle:
 
 			success = True
 			for orientation in self.__compass:
+				self.face_orientation(orientation=orientation)
+
 				op_success = self.dig_go_forward(num_steps=radius)
 				success = success and op_success
 				self.return_home()
-				self.face_orientation(orientation=orientation)
-			self.up()
+			if not success:
+				self.up()
 
 		self.__x_offset, self.__y_offset, self.__z_offset = original_home
 		return abs(self.__y_offset)
