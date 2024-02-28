@@ -63,11 +63,9 @@ class SmartTurtle:
 		return success
 
 	def back(self, num_steps: int = 1):
-		success = True
-
 		for i in range(num_steps):
-			step_success = self.__turtle.back()
-			if step_success:
+			op_success = self.__turtle.back()
+			if op_success:
 				if self.orientation == 'N':
 					self.__x_offset -= 1
 				elif self.orientation == 'S':
@@ -76,8 +74,9 @@ class SmartTurtle:
 					self.__z_offset -= 1
 				elif self.orientation == 'O':
 					self.__z_offset += 1
-			success = success and step_success
-		return success
+			else:
+				return False
+		return True
 
 	def up(self, num_steps: int = 1):
 		for i in range(num_steps):
@@ -86,8 +85,30 @@ class SmartTurtle:
 
 	def down(self, num_steps: int = 1):
 		for i in range(num_steps):
-			self.__turtle.down()
-			self.__y_offset -= 1
+			op_success = self.__turtle.down()
+			if op_success:
+				self.__y_offset -= 1
+			else:
+				return False
+		return True
+
+	def dig_go_forward(self, num_steps: int = 1):
+		for i in range(num_steps):
+			self.__turtle.dig()
+			op_success = self.forward()
+			if not op_success:
+				return False
+		return True
+
+	def dig_go_down(self, num_steps: int = 1):
+		for i in range(num_steps):
+			self.__turtle.digDown()
+			op_success = self.down()
+			if not op_success:
+				return False
+		return True
+
+
 
 	def sanitize_inventory(self):
 		black_list = ['minecraft:cobblestone',
@@ -163,6 +184,25 @@ class SmartTurtle:
 			self.forward(abs(self.__z_offset))
 		self.face_orientation('N')
 
+	def calibrate(self, radius: int = 10):
+		while self.dig_go_down():
+			pass
+
+		success = False
+		while not success:
+			success = True
+			for i in range(4):
+				op_success = self.dig_go_forward(num_steps=radius)
+				success = success and op_success
+			self.up()
+		return abs(self.__y_offset)
+
+
+
+
+
+
+
 	def quarry(self, length, width, depth, down_on_start):  # length ^ width >
 		going_away = True
 
@@ -186,11 +226,7 @@ class SmartTurtle:
 				self.sanitize_inventory()
 
 			if i != depth - 1:
-				self.down()
-				self.__turtle.digDown()
-				self.down()
-				self.__turtle.digDown()
-				self.down()
+				self.dig_go_down(num_steps=3)
 				self.__turtle.digDown()
 				self.turn(turn_right=True)
 				self.turn(turn_right=True)
@@ -199,4 +235,5 @@ class SmartTurtle:
 
 
 smart_turtle = SmartTurtle()
-smart_turtle.quarry(length=LENGTH, width=WIDTH, depth=DEPTH, down_on_start=DOWN_ON_START)
+print(smart_turtle.calibrate(radius=10))
+# smart_turtle.quarry(length=LENGTH, width=WIDTH, depth=DEPTH, down_on_start=DOWN_ON_START)
