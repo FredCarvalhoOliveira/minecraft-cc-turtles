@@ -24,14 +24,23 @@ else
     saved_state = textutils.unserialise(raw)
 end
 
-function wp.set(label, x, y, z)
-    saved_state[label] = { x, y, z }
+local function save()
     local content = textutils.serialise(saved_state)
     writeFile(content)
 end
 
+function wp.set(label, x, y, z)
+    saved_state[label] = { x, y, z }
+    save()
+end
+
 function wp.get(label)
     return saved_state[label]
+end
+
+function wp.remove(label)
+    saved_state[label] = nil
+    save()
 end
 
 function wp.getAll()
