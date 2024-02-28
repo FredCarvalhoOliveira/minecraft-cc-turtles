@@ -200,6 +200,7 @@ class SmartTurtle:
 			for i in range(4):
 				op_success = self.dig_go_forward(num_steps=radius)
 				success = success and op_success
+				self.turn_right()
 			self.up()
 		return abs(self.__y_offset)
 
