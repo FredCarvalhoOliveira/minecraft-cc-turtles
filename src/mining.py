@@ -2,9 +2,9 @@ from cc import turtle as cc_turtle
 
 LENGTH = 16
 WIDTH = 5
-DEPTH = 38
+DEPTH = 8
 
-DOWN_ON_START = 0
+DOWN_ON_START = 91
 
 
 class CircularList(list):
