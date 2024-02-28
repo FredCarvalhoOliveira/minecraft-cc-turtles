@@ -1,5 +1,11 @@
 from cc import turtle as cc_turtle
 
+LENGTH = 16
+WIDTH = 5
+DEPTH = 8
+
+DOWN_ON_START = 91
+
 
 class CircularList(list):
 	def __getitem__(self, index):
@@ -19,6 +25,16 @@ class SmartTurtle:
 	def orientation(self):
 		return self.__compass[self.__curr_orient_idx]
 
+	@property
+	def manhattan_dist_origin(self):
+		return abs(self.__x_offset) + abs(self.__y_offset) + abs(self.__z_offset)
+
+	@property
+	def inventory(self):
+		inventory = {}
+
+		return inventory
+
 	def turn_right(self, num_steps: int = 1):
 		for i in range(num_steps):
 			self.__turtle.turnRight()
@@ -30,30 +46,38 @@ class SmartTurtle:
 			self.__curr_orient_idx -= 1
 
 	def forward(self, num_steps: int = 1):
-		for i in range(num_steps):
-			self.__turtle.forward()
+		success = True
 
-			if self.orientation == 'N':
-				self.__x_offset += 1
-			elif self.orientation == 'S':
-				self.__x_offset -= 1
-			elif self.orientation == 'E':
-				self.__z_offset += 1
-			elif self.orientation == 'O':
-				self.__z_offset -= 1
+		for i in range(num_steps):
+			step_success = self.__turtle.forward()
+			if step_success:
+				if self.orientation == 'N':
+					self.__x_offset += 1
+				elif self.orientation == 'S':
+					self.__x_offset -= 1
+				elif self.orientation == 'E':
+					self.__z_offset += 1
+				elif self.orientation == 'O':
+					self.__z_offset -= 1
+			success = success and step_success
+		return success
 
 	def back(self, num_steps: int = 1):
-		for i in range(num_steps):
-			self.__turtle.back()
+		success = True
 
-			if self.orientation == 'N':
-				self.__x_offset -= 1
-			elif self.orientation == 'S':
-				self.__x_offset += 1
-			elif self.orientation == 'E':
-				self.__z_offset -= 1
-			elif self.orientation == 'O':
-				self.__z_offset += 1
+		for i in range(num_steps):
+			step_success = self.__turtle.back()
+			if step_success:
+				if self.orientation == 'N':
+					self.__x_offset -= 1
+				elif self.orientation == 'S':
+					self.__x_offset += 1
+				elif self.orientation == 'E':
+					self.__z_offset -= 1
+				elif self.orientation == 'O':
+					self.__z_offset += 1
+			success = success and step_success
+		return success
 
 	def up(self, num_steps: int = 1):
 		for i in range(num_steps):
@@ -73,7 +97,24 @@ class SmartTurtle:
 					  'minecraft:andesite',
 					  'minecraft:granite',
 					  'minecraft:cobbled_deepslate',
-					  'minecraft:diorite']
+					  'minecraft:tuff',
+					  'minecraft:calcite',
+					  'minecraft:diorite',
+					  'create:limestone']
+		# white_list = ['minecraft:coal',
+		# 			  'minecraft:raw_copper',
+		# 			  'minecraft:raw_iron',
+		# 			  'minecraft:raw_gold',
+		# 			  'minecraft:diamond',
+		# 			  'minecraft:emerald',
+		# 			  'minecraft:redstone',
+		# 			  'minecraft:lapis_lazuli',
+		# 			  'minecraft:lapis_lazuli',
+		# 			  'minecraft:lapis_lazuli',
+		# 			  'minecraft:lapis_lazuli',
+		# 			  'minecraft:lapis_lazuli',
+		# 	]
+
 		for i in range(1, 17):
 			self.__turtle.select(i)
 			item_detail = self.__turtle.getItemDetail()
@@ -82,8 +123,12 @@ class SmartTurtle:
 
 	def dig_col(self, num_steps: int = 1):
 		for i in range(num_steps):
-			self.__turtle.dig()
-			self.forward()
+			step_success = False
+			for attempt_idx in range(500):
+				if step_success:
+					break
+				self.__turtle.dig()
+				step_success = self.forward()
 			self.__turtle.digUp()
 			self.__turtle.digDown()
 
@@ -116,14 +161,21 @@ class SmartTurtle:
 		elif self.__z_offset < 0:
 			self.face_orientation('E')
 			self.forward(abs(self.__z_offset))
+		self.face_orientation('N')
 
-	def quarry(self, length, width, depth):  # length ^ width >
+	def quarry(self, length, width, depth, down_on_start):  # length ^ width >
 		going_away = True
 
 		self.dig_col()
 
+		self.down(down_on_start)
+
 		for i in range(depth):
 			for j in range(width):
+				if self.__turtle.getFuelLevel() < self.manhattan_dist_origin + 100:
+					self.return_home()
+					return
+
 				self.dig_col(length)
 
 				if j != width-1:
@@ -146,86 +198,5 @@ class SmartTurtle:
 		self.return_home()
 
 
-
-
-
-# def dig_col():
-# 	turtle.dig()
-# 	turtle.forward()
-# 	turtle.digUp()
-# 	turtle.digDown()
-#
-#
-# def dig_tunnel(depth):
-# 	for i in range(depth):
-# 		dig_col()
-#
-#
-# def turn(turn_right):
-# 	if turn_right:
-# 		turtle.turnRight()
-# 	else:
-# 		turtle.turnLeft()
-#
-#
-# def strip_mine(tunnel_depth, num_tunnels):
-# 	going_away = True
-#
-# 	dig_col()
-#
-# 	for i in range(num_tunnels):
-# 		dig_tunnel(tunnel_depth)
-#
-# 		turn(turn_right=going_away)
-#
-# 		dig_col()
-# 		dig_col()
-# 		dig_col()
-# 		dig_col()
-# 		dig_col()
-# 		turtle.back()
-# 		turtle.back()
-#
-# 		turn(turn_right=going_away)
-#
-# 		going_away = not going_away
-#
-# 		sanitize_inventory()
-#
-#
-# def full_mine(length, width, depth):  # length ^ width >
-# 	going_away = True
-#
-# 	dig_col()
-#
-# 	for i in range(depth):
-# 		for j in range(width):
-# 			dig_tunnel(length)
-#
-# 			if j != width-1:
-# 				turn(turn_right=going_away)
-# 				dig_col()
-# 				turn(turn_right=going_away)
-# 				going_away = not going_away
-# 			sanitize_inventory()
-#
-# 		if i != depth - 1:
-# 			turtle.down()
-# 			turtle.digDown()
-# 			turtle.down()
-# 			turtle.digDown()
-# 			turtle.down()
-# 			turtle.digDown()
-# 			turn(turn_right=True)
-# 			turn(turn_right=True)
-#
-# 	for i in range(depth):
-# 		turtle.up()
-#
-#
-#
-# # strip_mine(tunnel_depth=20, num_tunnels=10)
-# full_mine(2, 2, 2)
-
 smart_turtle = SmartTurtle()
-smart_turtle.quarry(5, 5, 2)
+smart_turtle.quarry(length=LENGTH, width=WIDTH, depth=DEPTH, down_on_start=DOWN_ON_START)
