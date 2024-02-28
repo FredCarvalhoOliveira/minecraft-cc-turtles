@@ -194,14 +194,22 @@ class SmartTurtle:
 		while self.dig_go_down():
 			pass
 
+		original_home = (self.__x_offset, self.__y_offset, self.__z_offset)
+
 		success = False
 		while not success:
+			# set temp home
+			self.__x_offset, self.__y_offset, self.__z_offset = 0, 0, 0
+
 			success = True
-			for i in range(4):
+			for orientation in self.__compass:
 				op_success = self.dig_go_forward(num_steps=radius)
 				success = success and op_success
-				self.turn_right()
+				self.return_home()
+				self.face_orientation(orientation=orientation)
 			self.up()
+
+		self.__x_offset, self.__y_offset, self.__z_offset = original_home
 		return abs(self.__y_offset)
 
 
