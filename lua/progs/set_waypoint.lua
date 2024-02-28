@@ -1,29 +1,33 @@
 local waypoints = require ".libs.lua.turtle.waypoints"
 local argparse = require ".libs.lua.argparse"
 
-
+-- Create Parser
 local parser = argparse("set_waypoint ", "Work with waypoints")
-
--- Conf comand
--- parser:command_target "option"
 
 -- Conf set
 local set = parser:command "set"
 set:argument("type"):choices({ "chest", "dump", "home", "fuel" })
-set:argument("coords", "X Y Z coords"):args(3)
+set:argument("x", "X coord")
+set:argument("y", "Y coord")
+set:argument("z", "Z coord")
 set:action(function(args)
     print(textutils.serialise(args))
-    -- type
-    -- x,y,z
-    -- waypoints.set()
+    waypoints.set(args.type, args.x, args.y, args.z)
+end)
+
+-- Conf remove
+local remove = parser:command "remove"
+remove:argument("type"):choices({ "chest", "dump", "home", "fuel" })
+remove:action(function(args)
+    print(textutils.serialise(args))
+    waypoints.remove(args.type)
 end)
 
 -- Conf list
-parser:command "list"
-parser:action(function(args)
-    print(textutils.serialise(args))
-    local list = waypoints.list()
-    textutils.serialise(list)
+local list  = parser:command "list"
+list:action(function()
+    local w_list = waypoints.getAll()
+    print(textutils.serialise(w_list))
 end)
 
 parser:parse({...})
