@@ -102,9 +102,7 @@ class SmartTurtle:
 
 	def dig_go_down(self, num_steps: int = 1):
 		for i in range(num_steps):
-			self.__turtle.digDown()
-			op_success = self.down()
-			if not op_success:
+			if not (self.__turtle.digDown() and self.down()):
 				return False
 		return True
 
