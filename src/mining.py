@@ -4,6 +4,8 @@ LENGTH = 16
 WIDTH = 5
 DEPTH = 38
 
+DOWN_ON_START = 0
+
 
 class CircularList(list):
 	def __getitem__(self, index):
@@ -159,11 +161,14 @@ class SmartTurtle:
 		elif self.__z_offset < 0:
 			self.face_orientation('E')
 			self.forward(abs(self.__z_offset))
+		self.face_orientation('N')
 
-	def quarry(self, length, width, depth):  # length ^ width >
+	def quarry(self, length, width, depth, down_on_start):  # length ^ width >
 		going_away = True
 
 		self.dig_col()
+
+		self.down(down_on_start)
 
 		for i in range(depth):
 			for j in range(width):
@@ -194,4 +199,4 @@ class SmartTurtle:
 
 
 smart_turtle = SmartTurtle()
-smart_turtle.quarry(length=LENGTH, width=WIDTH, depth=DEPTH)
+smart_turtle.quarry(length=LENGTH, width=WIDTH, depth=DEPTH, down_on_start=DOWN_ON_START)
