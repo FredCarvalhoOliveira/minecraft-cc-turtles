@@ -27,6 +27,12 @@ class SmartTurtle:
 	def manhattan_dist_origin(self):
 		return abs(self.__x_offset) + abs(self.__y_offset) + abs(self.__z_offset)
 
+	@property
+	def inventory(self):
+		inventory = {}
+
+		return inventory
+
 	def turn_right(self, num_steps: int = 1):
 		for i in range(num_steps):
 			self.__turtle.turnRight()
@@ -89,7 +95,24 @@ class SmartTurtle:
 					  'minecraft:andesite',
 					  'minecraft:granite',
 					  'minecraft:cobbled_deepslate',
-					  'minecraft:diorite']
+					  'minecraft:tuff',
+					  'minecraft:calcite',
+					  'minecraft:diorite',
+					  'create:limestone']
+		# white_list = ['minecraft:coal',
+		# 			  'minecraft:raw_copper',
+		# 			  'minecraft:raw_iron',
+		# 			  'minecraft:raw_gold',
+		# 			  'minecraft:diamond',
+		# 			  'minecraft:emerald',
+		# 			  'minecraft:redstone',
+		# 			  'minecraft:lapis_lazuli',
+		# 			  'minecraft:lapis_lazuli',
+		# 			  'minecraft:lapis_lazuli',
+		# 			  'minecraft:lapis_lazuli',
+		# 			  'minecraft:lapis_lazuli',
+		# 	]
+
 		for i in range(1, 17):
 			self.__turtle.select(i)
 			item_detail = self.__turtle.getItemDetail()
