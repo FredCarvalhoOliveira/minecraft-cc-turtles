@@ -35,6 +35,12 @@ class SmartTurtle:
 
 		return inventory
 
+	def dig_down(self):
+		try:
+			return self.__turtle.digDown()
+		except:
+			return False
+
 	def turn_right(self, num_steps: int = 1):
 		for i in range(num_steps):
 			self.__turtle.turnRight()
@@ -102,7 +108,9 @@ class SmartTurtle:
 
 	def dig_go_down(self, num_steps: int = 1):
 		for i in range(num_steps):
-			if not (self.__turtle.digDown() and self.down()):
+			self.dig_down()
+			op_success = self.down()
+			if not op_success:
 				return False
 		return True
 
