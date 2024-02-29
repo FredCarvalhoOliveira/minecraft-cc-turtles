@@ -5,8 +5,8 @@ from cc import turtle as cc_turtle
 LENGTH = 16
 WIDTH = 5
 DEPTH = 8
-
 DOWN_ON_START = 91
+MINERAL = ''
 
 
 class CircularList(list):
@@ -281,7 +281,6 @@ class SmartTurtle:
 
 		self.return_home()
 
-
 	def dig_mineral_layer(self, length: int, width: int, mineral: str):
 		mineral_layers = {
 			'coal': {'best': 96, 'max': 256, 'min': 0},
@@ -293,6 +292,8 @@ class SmartTurtle:
 			'lapis': {'best': 0, 'max': 64, 'min': -64},
 			}
 
+		mineral = mineral.lower()
+
 		if mineral not in mineral_layers:
 			print(f'>>> ERROR: Cant find layer data for {mineral}')
 			return
@@ -301,7 +302,10 @@ class SmartTurtle:
 			print('>>> Calculating home elevation...')
 			self.__origin_abs_y = self.calibrate()
 			print(f'>>> Home elevation is Y = {self.__origin_abs_y}')
-			self.quarry(length=length, width=width, down_on_start=0)
+
+			num_layers = 20
+			down_on_start = self.__origin_abs_y - min(self.__origin_abs_y, mineral_layers[mineral]['best'] + (num_layers//2) * 3)
+			self.quarry(length=length, width=width, depth=num_layers, down_on_start=down_on_start)
 
 
 
@@ -311,5 +315,5 @@ class SmartTurtle:
 
 
 smart_turtle = SmartTurtle()
-print(smart_turtle.calibrate(radius=10))
+smart_turtle.dig_mineral_layer(length=LENGTH, width=WIDTH, mineral=MINERAL)
 # smart_turtle.quarry(length=LENGTH, width=WIDTH, depth=DEPTH, down_on_start=DOWN_ON_START)
