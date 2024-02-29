@@ -304,7 +304,20 @@ class SmartTurtle:
 			print(f'>>> Home elevation is Y = {self.__origin_abs_y}')
 
 			num_layers = 20
-			down_on_start = self.__origin_abs_y - min(self.__origin_abs_y, mineral_layers[mineral]['best'] + (num_layers//2) * 3)
+			top_bound = min(self.__origin_abs_y, mineral_layers[mineral]['best'] + (num_layers//2) * 3)
+
+
+
+			down_on_start = self.__origin_abs_y - top_bound
+
+
+			# TODO FIX BOTTOM BOUND
+			# if mineral_layers[mineral]['best'] - num_layers//2 * 3 < -59:
+			# 	top_bound - num_layers*3
+			# 	# min(self.__origin_abs_y, mineral_layers[mineral]['best'] + (num_layers // 2) * 3)
+			# 	#
+			# 	# num_layers(mineral_layers[mineral]['best'] - num_layers // 2 * 3) - 59
+
 			self.quarry(length=length, width=width, depth=num_layers, down_on_start=down_on_start)
 
 
