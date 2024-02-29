@@ -1,3 +1,5 @@
+from typing import Optional
+
 from cc import turtle as cc_turtle
 
 LENGTH = 16
@@ -20,6 +22,8 @@ class SmartTurtle:
 		self.__y_offset: int = 0
 		self.__z_offset: int = 0
 		self.__curr_orient_idx: int = 0
+		self.__origin_abs_y: Optional[int] = None
+
 
 	@property
 	def orientation(self):
@@ -38,6 +42,12 @@ class SmartTurtle:
 	def dig(self):
 		try:
 			return self.__turtle.dig()
+		except:
+			return False
+
+	def dig_up(self):
+		try:
+			return self.__turtle.digUp()
 		except:
 			return False
 
@@ -92,8 +102,12 @@ class SmartTurtle:
 
 	def up(self, num_steps: int = 1):
 		for i in range(num_steps):
-			self.__turtle.up()
-			self.__y_offset += 1
+			op_success = self.__turtle.up()
+			if op_success:
+				self.__y_offset += 1
+			else:
+				return False
+		return True
 
 	def down(self, num_steps: int = 1):
 		for i in range(num_steps):
@@ -108,6 +122,14 @@ class SmartTurtle:
 		for i in range(num_steps):
 			self.dig()
 			op_success = self.forward()
+			if not op_success:
+				return False
+		return True
+
+	def dig_go_up(self, num_steps: int = 1):
+		for i in range(num_steps):
+			self.dig_up()
+			op_success = self.up()
 			if not op_success:
 				return False
 		return True
@@ -177,26 +199,28 @@ class SmartTurtle:
 
 	def return_home(self):
 		if self.__y_offset > 0:
-			self.down(self.__y_offset)
+			self.dig_go_down(self.__y_offset)
 		elif self.__y_offset < 0:
-			self.up(abs(self.__y_offset))
+			self.dig_go_up(abs(self.__y_offset))
 
 		if self.__x_offset > 0:
 			self.face_orientation('S')
-			self.forward(self.__x_offset)
+			self.dig_go_forward(self.__x_offset)
 		elif self.__x_offset < 0:
 			self.face_orientation('N')
-			self.forward(abs(self.__x_offset))
+			self.dig_go_forward(abs(self.__x_offset))
 
 		if self.__z_offset > 0:
 			self.face_orientation('O')
-			self.forward(self.__z_offset)
+			self.dig_go_forward(self.__z_offset)
 		elif self.__z_offset < 0:
 			self.face_orientation('E')
-			self.forward(abs(self.__z_offset))
+			self.dig_go_forward(abs(self.__z_offset))
 		self.face_orientation('N')
 
 	def calibrate(self, radius: int = 10):
+		self.dig_col()
+
 		while self.dig_go_down():
 			pass
 
@@ -222,13 +246,10 @@ class SmartTurtle:
 		bottom_y_offset = self.__y_offset
 
 		self.__x_offset, self.__y_offset, self.__z_offset = original_home
-		return -59 + abs(bottom_y_offset)
+		origin_abs_y = -59 + abs(bottom_y_offset)
 
-
-
-
-
-
+		self.return_home()
+		return origin_abs_y
 
 	def quarry(self, length, width, depth, down_on_start):  # length ^ width >
 		going_away = True
@@ -259,6 +280,34 @@ class SmartTurtle:
 				self.turn(turn_right=True)
 
 		self.return_home()
+
+
+	def dig_mineral_layer(self, length: int, width: int, mineral: str):
+		mineral_layers = {
+			'coal': {'best': 96, 'max': 256, 'min': 0},
+			'copper': {'best': 48, 'max': 112, 'min': -16},
+			'iron': {'best': 16, 'max': 56, 'min': -24},
+			'gold': {'best': -16, 'max': 32, 'min': -64},
+			'diamond': {'best': -59, 'max': 16, 'min': -64},
+			'redstone': {'best': -59, 'max': 16, 'min': -64},
+			'lapis': {'best': 0, 'max': 64, 'min': -64},
+			}
+
+		if mineral not in mineral_layers:
+			print(f'>>> ERROR: Cant find layer data for {mineral}')
+			return
+		else:
+			# Calibrate
+			print('>>> Calculating home elevation...')
+			self.__origin_abs_y = self.calibrate()
+			print(f'>>> Home elevation is Y = {self.__origin_abs_y}')
+			self.quarry(length=length, width=width, down_on_start=0)
+
+
+
+
+
+
 
 
 smart_turtle = SmartTurtle()
