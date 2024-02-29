@@ -308,12 +308,6 @@ class SmartTurtle:
 			self.quarry(length=length, width=width, depth=num_layers, down_on_start=down_on_start)
 
 
-
-
-
-
-
-
 smart_turtle = SmartTurtle()
 smart_turtle.dig_mineral_layer(length=LENGTH, width=WIDTH, mineral=MINERAL)
 # smart_turtle.quarry(length=LENGTH, width=WIDTH, depth=DEPTH, down_on_start=DOWN_ON_START)
