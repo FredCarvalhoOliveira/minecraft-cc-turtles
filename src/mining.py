@@ -214,11 +214,15 @@ class SmartTurtle:
 				op_success = self.dig_go_forward(num_steps=radius)
 				success = success and op_success
 				self.return_home()
+				if not op_success:
+					break
 			if not success:
 				self.up()
 
+		bottom_y_offset = self.__y_offset
+
 		self.__x_offset, self.__y_offset, self.__z_offset = original_home
-		return -59 + abs(self.__y_offset)
+		return -59 + abs(bottom_y_offset)
 
 
 
