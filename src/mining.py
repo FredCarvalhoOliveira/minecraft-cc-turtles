@@ -6,7 +6,7 @@ LENGTH = 16
 WIDTH = 5
 DEPTH = 8
 DOWN_ON_START = 91
-MINERAL = ''
+MINERAL = 'diamond'
 
 
 class CircularList(list):
@@ -303,7 +303,8 @@ class SmartTurtle:
 			self.__origin_abs_y = self.calibrate()
 			print(f'>>> Home elevation is Y = {self.__origin_abs_y}')
 
-			num_layers = 20
+			# num_layers = 20
+			num_layers = 2
 			top_bound = min(self.__origin_abs_y, mineral_layers[mineral]['best'] + (num_layers//2) * 3)
 
 
