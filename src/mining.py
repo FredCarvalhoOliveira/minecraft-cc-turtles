@@ -244,9 +244,9 @@ class SmartTurtle:
 				self.up()
 
 		bottom_y_offset = self.__y_offset
+		origin_abs_y = -59 + abs(bottom_y_offset)
 
 		self.__x_offset, self.__y_offset, self.__z_offset = original_home
-		origin_abs_y = -59 + abs(bottom_y_offset)
 
 		self.return_home()
 		return origin_abs_y
