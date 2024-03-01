@@ -303,9 +303,14 @@ class SmartTurtle:
 			self.__origin_abs_y = self.calibrate()
 			print(f'>>> Home elevation is Y = {self.__origin_abs_y}')
 
+			best_layer = mineral_layers[mineral]['best']
+
+
+
+
 			# num_layers = 20
 			num_layers = 2
-			top_bound = min(self.__origin_abs_y, mineral_layers[mineral]['best'] + (num_layers//2) * 3)
+			top_bound = min(self.__origin_abs_y, best_layer + (num_layers//2) * 3)
 
 
 
@@ -318,6 +323,10 @@ class SmartTurtle:
 			# 	# min(self.__origin_abs_y, mineral_layers[mineral]['best'] + (num_layers // 2) * 3)
 			# 	#
 			# 	# num_layers(mineral_layers[mineral]['best'] - num_layers // 2 * 3) - 59
+
+			print(f'>>> Best layer for {mineral} is Y = {best_layer}')
+			print(f'>>> Quarry will be from Y = {top_bound} to Y = {0}')
+			print(f'>>> Going down {down_on_start} blocks')
 
 			self.quarry(length=length, width=width, depth=num_layers, down_on_start=down_on_start)
 
