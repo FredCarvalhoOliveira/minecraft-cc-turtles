@@ -197,26 +197,29 @@ class SmartTurtle:
 		while self.orientation != orientation:
 			self.turn_right()
 
-	def return_home(self):
-		if self.__y_offset > 0:
+	def go_to(self, x: int, y: int, z: int):
+		if self.__y_offset > y:
 			self.dig_go_down(self.__y_offset)
-		elif self.__y_offset < 0:
+		elif self.__y_offset < y:
 			self.dig_go_up(abs(self.__y_offset))
 
-		if self.__x_offset > 0:
+		if self.__x_offset > x:
 			self.face_orientation('S')
 			self.dig_go_forward(self.__x_offset)
-		elif self.__x_offset < 0:
+		elif self.__x_offset < x:
 			self.face_orientation('N')
 			self.dig_go_forward(abs(self.__x_offset))
 
-		if self.__z_offset > 0:
+		if self.__z_offset > z:
 			self.face_orientation('O')
 			self.dig_go_forward(self.__z_offset)
-		elif self.__z_offset < 0:
+		elif self.__z_offset < z:
 			self.face_orientation('E')
 			self.dig_go_forward(abs(self.__z_offset))
 		self.face_orientation('N')
+
+	def return_home(self):
+		self.go_to(x=0, y=0, z=0)
 
 	def calibrate(self, radius: int = 10):
 		self.dig_col()
@@ -231,21 +234,22 @@ class SmartTurtle:
 			# set temp home
 			self.__x_offset, self.__y_offset, self.__z_offset = 0, 0, 0
 
+			checkpoint_x, checkpoint_y, checkpoint_z = self.__x_offset, self.__y_offset, self.__z_offset
+
 			success = True
 			for orientation in self.__compass:
 				self.face_orientation(orientation=orientation)
 
 				op_success = self.dig_go_forward(num_steps=radius)
 				success = success and op_success
-				self.return_home()
+
+				self.go_to(x=checkpoint_x, y=checkpoint_y, z=checkpoint_z)
 				if not op_success:
 					break
 			if not success:
 				self.up()
 
 		bottom_y_offset = self.__y_offset
-
-		self.__x_offset, self.__y_offset, self.__z_offset = original_home
 		origin_abs_y = -59 + abs(bottom_y_offset)
 
 		self.return_home()
@@ -303,14 +307,16 @@ class SmartTurtle:
 			self.__origin_abs_y = self.calibrate()
 			print(f'>>> Home elevation is Y = {self.__origin_abs_y}')
 
-			# num_layers = 20
-			num_layers = 2
-			top_bound = min(self.__origin_abs_y, mineral_layers[mineral]['best'] + (num_layers//2) * 3)
+			best_layer = mineral_layers[mineral]['best']
 
 
+
+
+			top_bound = min(self.__origin_abs_y, mineral_layers[mineral]['max'])
+			bottom_bound = max(mineral_layers[mineral]['min'], -59)
 
 			down_on_start = self.__origin_abs_y - top_bound
-
+			num_layers = (top_bound - bottom_bound) // 3
 
 			# TODO FIX BOTTOM BOUND
 			# if mineral_layers[mineral]['best'] - num_layers//2 * 3 < -59:
@@ -318,6 +324,10 @@ class SmartTurtle:
 			# 	# min(self.__origin_abs_y, mineral_layers[mineral]['best'] + (num_layers // 2) * 3)
 			# 	#
 			# 	# num_layers(mineral_layers[mineral]['best'] - num_layers // 2 * 3) - 59
+
+			print(f'>>> Best layer for {mineral} is Y = {best_layer}')
+			print(f'>>> Quarry will be from Y = {top_bound} to Y = {bottom_bound}')
+			print(f'>>> Going down {down_on_start} blocks')
 
 			self.quarry(length=length, width=width, depth=num_layers, down_on_start=down_on_start)
 
