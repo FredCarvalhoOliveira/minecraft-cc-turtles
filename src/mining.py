@@ -308,14 +308,11 @@ class SmartTurtle:
 
 
 
-			# num_layers = 20
-			num_layers = 2
-			top_bound = min(self.__origin_abs_y, best_layer + (num_layers//2) * 3)
-
-
+			top_bound = min(self.__origin_abs_y, mineral_layers[mineral]['max'])
+			bottom_bound = max(mineral_layers[mineral]['min'], -59)
 
 			down_on_start = self.__origin_abs_y - top_bound
-
+			num_layers = (top_bound - bottom_bound) // 3
 
 			# TODO FIX BOTTOM BOUND
 			# if mineral_layers[mineral]['best'] - num_layers//2 * 3 < -59:
@@ -332,5 +329,5 @@ class SmartTurtle:
 
 
 smart_turtle = SmartTurtle()
-smart_turtle.dig_mineral_layer(length=LENGTH, width=WIDTH, mineral=MINERAL)
+# smart_turtle.dig_mineral_layer(length=LENGTH, width=WIDTH, mineral=MINERAL)
 # smart_turtle.quarry(length=LENGTH, width=WIDTH, depth=DEPTH, down_on_start=DOWN_ON_START)
