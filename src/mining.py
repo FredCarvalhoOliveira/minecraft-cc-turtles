@@ -322,12 +322,12 @@ class SmartTurtle:
 			# 	# num_layers(mineral_layers[mineral]['best'] - num_layers // 2 * 3) - 59
 
 			print(f'>>> Best layer for {mineral} is Y = {best_layer}')
-			print(f'>>> Quarry will be from Y = {top_bound} to Y = {0}')
+			print(f'>>> Quarry will be from Y = {top_bound} to Y = {bottom_bound}')
 			print(f'>>> Going down {down_on_start} blocks')
 
 			self.quarry(length=length, width=width, depth=num_layers, down_on_start=down_on_start)
 
 
 smart_turtle = SmartTurtle()
-# smart_turtle.dig_mineral_layer(length=LENGTH, width=WIDTH, mineral=MINERAL)
+smart_turtle.dig_mineral_layer(length=LENGTH, width=WIDTH, mineral=MINERAL)
 # smart_turtle.quarry(length=LENGTH, width=WIDTH, depth=DEPTH, down_on_start=DOWN_ON_START)
