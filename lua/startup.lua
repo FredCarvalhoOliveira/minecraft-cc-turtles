@@ -126,8 +126,9 @@ local motd = {
 local function filter_by_size(max_height)
     local filtered = {}
     for img in ipairs(motd) do
-        if img["size"][2] > max_height then
-            table.insert(filtered, img)
+        local value = motd[img]
+        if value["size"][2] > max_height then
+            table.insert(filtered, value)
         end
     end
 
@@ -144,7 +145,7 @@ local function write_motd()
 
     local chosen = valid_imgs[idx]
     for v in ipairs(chosen) do
-        print(v:sub(0, w))
+        print(chosen[v]:sub(0, w))
     end
 end
 
