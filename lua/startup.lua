@@ -86,7 +86,7 @@ local function filter_by_size(max_height)
     local filtered = {}
     for img in ipairs(motd) do
         local value = motd[img]
-        if value["size"][2] > max_height then
+        if value["size"][2] <= max_height then
             table.insert(filtered, value)
         end
     end
