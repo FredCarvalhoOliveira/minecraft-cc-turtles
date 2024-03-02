@@ -209,12 +209,13 @@ class SmartTurtle:
 			self.dig_go_up(abs(self.__y_offset))
 
 		if self.__x_offset > x:
+			print('backward')
 			self.face_orientation('S')
-			self.dig_go_forward(self.__x_offset)
+			self.dig_go_forward(abs(x - self.__x_offset))
 		elif self.__x_offset < x:
 			print('forward')
 			self.face_orientation('N')
-			self.dig_go_forward(abs(self.__x_offset))
+			self.dig_go_forward(abs(x - self.__x_offset))
 
 		if self.__z_offset > z:
 			self.face_orientation('O')
