@@ -204,9 +204,9 @@ class SmartTurtle:
 
 
 		if self.__y_offset > y:
-			self.dig_go_down(self.__y_offset)
+			self.dig_go_down(abs(y - self.__y_offset))
 		elif self.__y_offset < y:
-			self.dig_go_up(abs(self.__y_offset))
+			self.dig_go_up(abs(y - self.__y_offset))
 
 		if self.__x_offset > x:
 			print('backward')
@@ -219,10 +219,10 @@ class SmartTurtle:
 
 		if self.__z_offset > z:
 			self.face_orientation('O')
-			self.dig_go_forward(self.__z_offset)
+			self.dig_go_forward(abs(z - self.__z_offset))
 		elif self.__z_offset < z:
 			self.face_orientation('E')
-			self.dig_go_forward(abs(self.__z_offset))
+			self.dig_go_forward(abs(z - self.__z_offset))
 		self.face_orientation('N')
 
 	def return_home(self):
