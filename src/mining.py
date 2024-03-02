@@ -335,11 +335,11 @@ class SmartTurtle:
 
 
 smart_turtle = SmartTurtle()
-smart_turtle.go_to(x=8, y=0, z=0)
-smart_turtle.go_to(x=8, y=2, z=0)
-smart_turtle.go_to(x=4, y=0, z=4)
-smart_turtle.go_to(x=4, y=2, z=4)
-smart_turtle.go_to(x=8, y=0, z=8)
-smart_turtle.go_to(x=0, y=0, z=0)
-# smart_turtle.dig_mineral_layer(length=LENGTH, width=WIDTH, mineral=MINERAL)
+# smart_turtle.go_to(x=8, y=0, z=0)
+# smart_turtle.go_to(x=8, y=2, z=0)
+# smart_turtle.go_to(x=4, y=0, z=4)
+# smart_turtle.go_to(x=4, y=2, z=4)
+# smart_turtle.go_to(x=8, y=0, z=8)
+# smart_turtle.go_to(x=0, y=0, z=0)
+smart_turtle.dig_mineral_layer(length=LENGTH, width=WIDTH, mineral=MINERAL)
 # smart_turtle.quarry(length=LENGTH, width=WIDTH, depth=DEPTH, down_on_start=DOWN_ON_START)
