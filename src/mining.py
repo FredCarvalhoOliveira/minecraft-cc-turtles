@@ -198,6 +198,11 @@ class SmartTurtle:
 			self.turn_right()
 
 	def go_to(self, x: int, y: int, z: int):
+		print(f'x: {self.__x_offset} -> {x}')
+		print(f'y: {self.__y_offset} -> {y}')
+		print(f'z: {self.__z_offset} -> {z}')
+
+
 		if self.__y_offset > y:
 			self.dig_go_down(self.__y_offset)
 		elif self.__y_offset < y:
