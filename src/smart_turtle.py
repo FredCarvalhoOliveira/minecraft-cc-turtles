@@ -24,7 +24,6 @@ class SmartTurtle:
 		self.__curr_orient_idx: int = 0
 		self.__origin_abs_y: Optional[int] = None
 
-
 	@property
 	def orientation(self):
 		return self.__compass[self.__curr_orient_idx]
@@ -36,7 +35,7 @@ class SmartTurtle:
 	@property
 	def inventory(self):
 		inventory = {}
-
+		# TODO: Implement inventory
 		return inventory
 
 	def dig(self):
@@ -198,22 +197,15 @@ class SmartTurtle:
 			self.turn_right()
 
 	def go_to(self, x: int, y: int, z: int):
-		print(f'x: {self.__x_offset} -> {x}')
-		print(f'y: {self.__y_offset} -> {y}')
-		print(f'z: {self.__z_offset} -> {z}')
-
-
 		if self.__y_offset > y:
 			self.dig_go_down(abs(y - self.__y_offset))
 		elif self.__y_offset < y:
 			self.dig_go_up(abs(y - self.__y_offset))
 
 		if self.__x_offset > x:
-			print('backward')
 			self.face_orientation('S')
 			self.dig_go_forward(abs(x - self.__x_offset))
 		elif self.__x_offset < x:
-			print('forward')
 			self.face_orientation('N')
 			self.dig_go_forward(abs(x - self.__x_offset))
 
@@ -229,8 +221,6 @@ class SmartTurtle:
 		self.go_to(x=0, y=0, z=0)
 
 	def calibrate(self, radius: int = 10):
-		self.dig_col()
-
 		while self.dig_go_down():
 			pass
 
@@ -257,83 +247,6 @@ class SmartTurtle:
 		self.return_home()
 		return origin_abs_y
 
-	def quarry(self, length, width, depth, down_on_start):  # length ^ width >
-		going_away = True
-
-		self.dig_col()
-
-		self.down(down_on_start)
-
-		for i in range(depth):
-			for j in range(width):
-				if self.__turtle.getFuelLevel() < self.manhattan_dist_origin + 100:
-					self.return_home()
-					return
-
-				self.dig_col(length)
-
-				if j != width-1:
-					self.turn(turn_right=going_away)
-					self.dig_col()
-					self.turn(turn_right=going_away)
-					going_away = not going_away
-				self.sanitize_inventory()
-
-			if i != depth - 1:
-				self.dig_go_down(num_steps=3)
-				self.__turtle.digDown()
-				self.turn(turn_right=True)
-				self.turn(turn_right=True)
-
-		self.return_home()
-
-	def dig_mineral_layer(self, length: int, width: int, mineral: str):
-		mineral_layers = {
-			'coal': {'best': 96, 'max': 256, 'min': 0},
-			'copper': {'best': 48, 'max': 112, 'min': -16},
-			'iron': {'best': 16, 'max': 56, 'min': -24},
-			'gold': {'best': -16, 'max': 32, 'min': -59},
-			'diamond': {'best': -59, 'max': -15, 'min': -59},
-			'redstone': {'best': -59, 'max': 16, 'min': -59},
-			'lapis': {'best': 0, 'max': 64, 'min': -59},
-			}
-
-		mineral = mineral.lower()
-
-		if mineral not in mineral_layers:
-			print(f'>>> ERROR: Cant find layer data for {mineral}')
-			return
-		else:
-			# Calibrate
-			print('>>> Calculating home elevation...')
-			self.__origin_abs_y = self.calibrate()
-			print(f'>>> Home elevation is Y = {self.__origin_abs_y}')
-
-			best_layer = mineral_layers[mineral]['best']
-
-
-
-
-			top_bound = min(self.__origin_abs_y, mineral_layers[mineral]['max'])
-			bottom_bound = max(mineral_layers[mineral]['min'], -59)
-
-			down_on_start = self.__origin_abs_y - top_bound
-			num_layers = (top_bound - bottom_bound) // 3
-
-			# TODO FIX BOTTOM BOUND
-			# if mineral_layers[mineral]['best'] - num_layers//2 * 3 < -59:
-			# 	top_bound - num_layers*3
-			# 	# min(self.__origin_abs_y, mineral_layers[mineral]['best'] + (num_layers // 2) * 3)
-			# 	#
-			# 	# num_layers(mineral_layers[mineral]['best'] - num_layers // 2 * 3) - 59
-
-			print(f'>>> Best layer for {mineral} is Y = {best_layer}')
-			print(f'>>> Quarry will be from Y = {top_bound} to Y = {bottom_bound}')
-			print(f'>>> Going down {down_on_start} blocks')
-
-			self.quarry(length=length, width=width, depth=num_layers, down_on_start=down_on_start)
-
-
 smart_turtle = SmartTurtle()
 # smart_turtle.go_to(x=8, y=0, z=0)
 # smart_turtle.go_to(x=8, y=2, z=0)
@@ -341,5 +254,3 @@ smart_turtle = SmartTurtle()
 # smart_turtle.go_to(x=4, y=2, z=4)
 # smart_turtle.go_to(x=8, y=0, z=8)
 # smart_turtle.go_to(x=0, y=0, z=0)
-smart_turtle.dig_mineral_layer(length=LENGTH, width=WIDTH, mineral=MINERAL)
-# smart_turtle.quarry(length=LENGTH, width=WIDTH, depth=DEPTH, down_on_start=DOWN_ON_START)
