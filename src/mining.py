@@ -234,13 +234,8 @@ class SmartTurtle:
 		while self.dig_go_down():
 			pass
 
-		# original_home = (self.__x_offset, self.__y_offset, self.__z_offset)
-
 		success = False
 		while not success:
-			# set temp home
-			self.__x_offset, self.__y_offset, self.__z_offset = 0, 0, 0
-
 			checkpoint_x, checkpoint_y, checkpoint_z = self.__x_offset, self.__y_offset, self.__z_offset
 
 			success = True
