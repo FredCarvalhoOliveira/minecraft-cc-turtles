@@ -35,7 +35,10 @@ class SmartTurtle:
 	@property
 	def inventory(self):
 		inventory = {}
-		# TODO: Implement inventory
+		for i in range(1, 17):
+			self.__turtle.select(i)
+			item_detail = self.__turtle.getItemDetail()
+			inventory[i] = item_detail
 		return inventory
 
 	def dig(self):
@@ -175,17 +178,6 @@ class SmartTurtle:
 			if item_detail is not None and item_detail['name'] in black_list:
 				self.__turtle.dropDown()
 
-	def dig_col(self, num_steps: int = 1):
-		for i in range(num_steps):
-			step_success = False
-			for attempt_idx in range(500):
-				if step_success:
-					break
-				self.__turtle.dig()
-				step_success = self.forward()
-			self.__turtle.digUp()
-			self.__turtle.digDown()
-
 	def turn(self, turn_right, num_steps=1):
 		if turn_right:
 			self.turn_right(num_steps=num_steps)
@@ -248,6 +240,7 @@ class SmartTurtle:
 		return origin_abs_y
 
 smart_turtle = SmartTurtle()
+print(smart_turtle.inventory)
 # smart_turtle.go_to(x=8, y=0, z=0)
 # smart_turtle.go_to(x=8, y=2, z=0)
 # smart_turtle.go_to(x=4, y=0, z=4)
