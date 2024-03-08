@@ -36,7 +36,10 @@ class SmartTurtle:
 	@property
 	def inventory(self):
 		inventory = {}
-
+		for i in range(1, 17):
+			self.__turtle.select(i)
+			item_detail = self.__turtle.getItemDetail()
+			inventory[i] = item_detail
 		return inventory
 
 	def dig(self):
